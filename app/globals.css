@@ -224,7 +224,7 @@ nav {
 
 /* CONTACT */
 #contact { padding: 6rem 3.5rem; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.contact-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; max-width: 600px; }
 .contact-desc { color: var(--muted); max-width: 380px; margin-bottom: 2rem; font-size: 0.95rem; }
 .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
 .contact-link {

@@ -195,9 +195,7 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <div className="reveal">
-            <ContactForm />
-          </div>
+    
         </div>
       </section>
 
