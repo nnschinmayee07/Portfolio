@@ -1,4 +1,3 @@
-import ContactForm from '@/components/ContactForm'
 
 const projects = [
   {
