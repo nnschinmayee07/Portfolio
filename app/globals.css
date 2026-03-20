@@ -450,3 +450,14 @@ body { cursor: none; }
   pointer-events: none; opacity: 0; transition: opacity 0.2s;
 }
 .tilt-card:hover .tilt-shine { opacity: 1; }
+
+/* DISABLE TILT ON TOUCH - just simple scale */
+@media (hover: none) {
+  .tilt-card {
+    transform: none !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  }
+  .tilt-card:active {
+    transform: scale(0.97) !important;
+  }
+}
