@@ -461,3 +461,45 @@ body { cursor: none; }
     transform: scale(0.97) !important;
   }
 }
+
+/* HERO INTERACTIVE */
+.orb1 { animation: orbFloat1 8s ease-in-out infinite; }
+.orb2 { animation: orbFloat2 10s ease-in-out infinite; }
+@keyframes orbFloat1 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%     { transform: translate(-30px, 20px) scale(1.05); }
+  66%     { transform: translate(20px, -15px) scale(0.97); }
+}
+@keyframes orbFloat2 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  40%     { transform: translate(25px, -20px) scale(1.08); }
+  70%     { transform: translate(-15px, 15px) scale(0.95); }
+}
+
+.hero-name .grad {
+  background-size: 300% 300%;
+  animation: heroGradShift 4s ease infinite;
+}
+@keyframes heroGradShift {
+  0%,100% { background-position: 0% 50%; }
+  50%     { background-position: 100% 50%; }
+}
+
+/* HERO PARTICLES */
+.hero-particle {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  animation: heroParticleFloat linear infinite;
+  opacity: 0;
+}
+@keyframes heroParticleFloat {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(-80px) translateX(20px); opacity: 0; }
+}
+
+/* HERO TYPING CURSOR on role */
+.hero-role::after {
+  content: '|'; color: var(--accent);
+  animation: blink 1s infinite; margin-left: 2px;
+}

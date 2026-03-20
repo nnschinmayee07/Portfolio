@@ -3,6 +3,27 @@ import { useEffect } from 'react'
 
 export default function ClientScripts() {
   useEffect(() => {
+    // HERO PARTICLES
+    const hero = document.getElementById('hero')
+    if (hero) {
+      const hColors = ['rgba(167,139,250,0.5)','rgba(244,114,182,0.4)','rgba(251,146,60,0.3)','rgba(52,211,153,0.3)']
+      for (let i = 0; i < 18; i++) {
+        const p = document.createElement('div')
+        p.className = 'hero-particle'
+        const size = Math.random() * 4 + 2
+        p.style.cssText = `
+          width:${size}px; height:${size}px;
+          left:${Math.random() * 100}%;
+          top:${30 + Math.random() * 60}%;
+          background:${hColors[Math.floor(Math.random()*hColors.length)]};
+          animation-duration:${4 + Math.random() * 5}s;
+          animation-delay:${Math.random() * 4}s;
+          filter:blur(${Math.random() > 0.6 ? 1 : 0}px);
+        `
+        hero.appendChild(p)
+      }
+    }
+
     // 3D TILT on cards — desktop only
     const isTouchDevice = window.matchMedia('(hover: none)').matches
     if (!isTouchDevice) {
