@@ -194,9 +194,24 @@ export default function ClientScripts() {
       else backBtn?.classList.remove('visible')
     }
     window.addEventListener('scroll', onScroll, { passive: true })
-    // check on load in case page is already scrolled
     onScroll()
-    backBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
+
+    function scrollToTop() {
+      const start = window.scrollY
+      const duration = 500
+      const startTime = performance.now()
+      const ease = (t: number) => t < 0.5 ? 2*t*t : -1+(4-2*t)*t
+      function step(now: number) {
+        const elapsed = now - startTime
+        const progress = Math.min(elapsed / duration, 1)
+        window.scrollTo(0, start * (1 - ease(progress)))
+        if (progress < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+    }
+
+    backBtn?.addEventListener('click', scrollToTop)
+    backBtn?.addEventListener('touchend', (e) => { e.preventDefault(); scrollToTop() })
 
     // Nav smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(link => {
