@@ -19,10 +19,22 @@ export default function ClientScripts() {
       })
     }
 
-    // HERO ROLE — wrap each word for hover effect
+    // HERO ROLE — wrap each word for hover effect (text nodes only, skip HTML tags)
     const heroRole = document.querySelector('.hero-role') as HTMLElement
     if (heroRole) {
-      heroRole.innerHTML = heroRole.innerHTML.replace(/(\b\w+\b)/g, '<span class="word">$1</span>')
+      const wrapTextNodes = (node: Node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent || ''
+          if (text.trim()) {
+            const span = document.createElement('span')
+            span.innerHTML = text.replace(/(\S+)/g, '<span class="word">$1</span>')
+            node.parentNode?.replaceChild(span, node)
+          }
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          Array.from(node.childNodes).forEach(wrapTextNodes)
+        }
+      }
+      Array.from(heroRole.childNodes).forEach(wrapTextNodes)
     }
 
     // HERO PARTICLES
