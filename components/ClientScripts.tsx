@@ -274,14 +274,18 @@ export default function ClientScripts() {
     const messagesEl = document.getElementById('aiMessages')
     const quickBtns = document.querySelectorAll('.ai-quick')
 
+    // Schedule flow state
+    type ScheduleStep = 'idle' | 'name' | 'date' | 'time' | 'reason'
+    let scheduleStep: ScheduleStep = 'idle'
+    const scheduleData: { name?: string; date?: string; time?: string; reason?: string } = {}
+
     const replies: Record<string, string> = {
       skillset: `I specialise in UI/UX Design, Full Stack Dev (HTML, CSS, JS), Python, Java, C, and Hardware/IoT with Arduino & Raspberry Pi. Design-first, always. 🎨`,
       projects: `Here's what I've built:\n• Sophix — competitive platform for students\n• Home Farm Tool — layout planning UI\n• Dexpress — deployment software\n• Gesture Smart Gloves — Arduino + flex sensors\n\nClick any project card to explore! 🚀`,
-      project_01: `Sophix is an Unstop-inspired competitive platform for students — built from scratch with deep focus on UX, clean flows, and pixel-perfect UI.\n\n🔗 <a href="https://sophix-git-main-nnschinmayee07-8534s-projects.vercel.app" target="_blank">Live Site</a> · <a href="https://github.com/nnschinmayee07/Sophix" target="_blank">GitHub</a>`,
-      project_02: `Home Farm Designing Tool — a software tool for planning and visualizing home farm layouts with a clean, intuitive UI.\n\n🔗 <a href="https://homefarm-planner.vercel.app" target="_blank">Live Site</a> · <a href="https://github.com/nnschinmayee07/My-home-farm-designer" target="_blank">GitHub</a>`,
-      project_03: `Dexpress — a streamlined deployment tool that simplifies getting apps from local to live. Built for developer experience and speed.\n\n🔗 <a href="https://zignasa-three.vercel.app" target="_blank">Live Site</a> · <a href="https://github.com/nnschinmayee07/Zignasa" target="_blank">GitHub</a>`,
-      project_04: `Gesture-Controlled Smart Gloves — Arduino-based gesture detection using flex sensors to convert hand movements into control signals. Hardware meets human-centered design.\n\n🐙 <a href="https://github.com/nnschinmayee07/Gestures-to-speech" target="_blank">GitHub Repo</a> (no live demo — it's hardware!)`,
-      schedule: `Let's connect! You can schedule a meet via Google Calendar 👇\n<a href="https://calendar.google.com/calendar/u/0/r/eventedit?add=nnschinmayee07@gmail.com" target="_blank" rel="noopener">📅 Schedule on Google Calendar</a>\n\nOr just drop a mail at nnschinmayee07@gmail.com`,
+      project_01: `Sophix is an Unstop-inspired competitive platform for students — built from scratch with deep focus on UX, clean flows, and pixel-perfect UI.\n\n🛠 Stack: HTML · CSS · JavaScript · Figma · Responsive Design\n\n🔗 <a href="https://sophix-git-main-nnschinmayee07-8534s-projects.vercel.app" target="_blank">Live Site</a> · <a href="https://github.com/nnschinmayee07/Sophix" target="_blank">GitHub</a>`,
+      project_02: `Home Farm Designing Tool — a software tool for planning and visualizing home farm layouts with a clean, intuitive UI.\n\n🛠 Stack: HTML · CSS · JavaScript · Canvas API\n\n🔗 <a href="https://homefarm-planner.vercel.app" target="_blank">Live Site</a> · <a href="https://github.com/nnschinmayee07/My-home-farm-designer" target="_blank">GitHub</a>`,
+      project_03: `Dexpress — a streamlined deployment tool that simplifies getting apps from local to live. Built for developer experience and speed.\n\n🛠 Stack: Next.js · TypeScript · Vercel · Node.js\n\n🔗 <a href="https://zignasa-three.vercel.app" target="_blank">Live Site</a> · <a href="https://github.com/nnschinmayee07/Zignasa" target="_blank">GitHub</a>`,
+      project_04: `Gesture-Controlled Smart Gloves — Arduino-based gesture detection using flex sensors to convert hand movements into control signals.\n\n🛠 Stack: Arduino · C++ · Flex Sensors · Bluetooth\n\n🐙 <a href="https://github.com/nnschinmayee07/Gestures-to-speech" target="_blank">GitHub Repo</a> (no live demo — it's hardware!)`,
       contact: `Here's how to reach me:\n✉️ nnschinmayee07@gmail.com\n💼 <a href="https://www.linkedin.com/in/naga-sai-chinmayee-neti-8ab1b5345/" target="_blank">LinkedIn</a>\n🐙 <a href="https://github.com/nnschinmayee07" target="_blank">GitHub</a>`,
       message: `You can drop me a message directly at ✉️ <a href="mailto:nnschinmayee07@gmail.com">nnschinmayee07@gmail.com</a> — I reply within 24 hours! 💬`,
     }
@@ -307,7 +311,7 @@ export default function ClientScripts() {
       messagesEl.scrollTop = messagesEl.scrollHeight
     }
 
-    function showTypingThenReply(text: string) {
+    function showTypingThenReply(text: string, cb?: () => void) {
       if (!messagesEl) return
       const typing = document.createElement('div')
       typing.className = 'ai-typing'
@@ -317,7 +321,75 @@ export default function ClientScripts() {
       setTimeout(() => {
         typing.remove()
         addMsg(text, 'bot')
+        cb?.()
       }, 900)
+    }
+
+    function showInput(placeholder: string, onSubmit: (val: string) => void) {
+      if (!messagesEl) return
+      const wrap = document.createElement('div')
+      wrap.className = 'ai-input-wrap'
+      wrap.innerHTML = `<input class="ai-input" placeholder="${placeholder}" /><button class="ai-send">→</button>`
+      messagesEl.appendChild(wrap)
+      messagesEl.scrollTop = messagesEl.scrollHeight
+      const input = wrap.querySelector('.ai-input') as HTMLInputElement
+      const btn = wrap.querySelector('.ai-send') as HTMLButtonElement
+      input.focus()
+      const submit = () => {
+        const val = input.value.trim()
+        if (!val) return
+        wrap.remove()
+        addMsg(val, 'user')
+        onSubmit(val)
+      }
+      btn.addEventListener('click', submit)
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') submit() })
+    }
+
+    function buildCalendarLink() {
+      const { name, date, time, reason } = scheduleData
+      // date: YYYYMMDD, time: HH:MM → start = YYYYMMDDTHHmm00, end = +1hr
+      const [y, m, d] = (date ?? '').split('-')
+      const [hh, mm] = (time ?? '00:00').split(':')
+      const pad = (n: string) => n.padStart(2, '0')
+      const start = `${y}${pad(m)}${pad(d)}T${pad(hh)}${pad(mm)}00`
+      const endH = String(Number(hh) + 1).padStart(2, '0')
+      const end = `${y}${pad(m)}${pad(d)}T${endH}${pad(mm)}00`
+      const title = encodeURIComponent(`Meet with ${name} — ${reason}`)
+      const details = encodeURIComponent(`Requested via Chinmayee's portfolio.\nReason: ${reason}`)
+      return `https://calendar.google.com/calendar/r/eventedit?text=${title}&dates=${start}/${end}&details=${details}&add=nnschinmayee07@gmail.com`
+    }
+
+    function startScheduleFlow() {
+      scheduleStep = 'name'
+      showTypingThenReply(`Sure! Let's set it up. 📅\n\nWhat's your name?`, () => {
+        showInput('Your name...', (name) => {
+          scheduleData.name = name
+          scheduleStep = 'date'
+          showTypingThenReply(`Nice to meet you, ${name}! 👋\n\nWhat date works for you?`, () => {
+            showInput('YYYY-MM-DD', (date) => {
+              scheduleData.date = date
+              scheduleStep = 'time'
+              showTypingThenReply(`Got it — ${date}. What time? (IST)`, () => {
+                showInput('HH:MM (e.g. 10:00)', (time) => {
+                  scheduleData.time = time
+                  scheduleStep = 'reason'
+                  showTypingThenReply(`Almost done! What's the reason for the meet?`, () => {
+                    showInput('e.g. Internship discussion...', (reason) => {
+                      scheduleData.reason = reason
+                      scheduleStep = 'idle'
+                      const link = buildCalendarLink()
+                      showTypingThenReply(
+                        `All set! 🎉 Here's your calendar invite:\n\n<a href="${link}" target="_blank" rel="noopener" style="color:var(--accent3);font-weight:600;">📅 Open Google Calendar →</a>\n\nClick to confirm the event. Chinmayee will get a notification!`
+                      )
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
+      })
     }
 
     avatarBtn?.addEventListener('click', () => widget?.classList.toggle('open'))
@@ -326,6 +398,11 @@ export default function ClientScripts() {
     quickBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const q = (btn as HTMLElement).dataset.q!
+        if (q === 'schedule') {
+          addMsg(questionLabels[q], 'user')
+          startScheduleFlow()
+          return
+        }
         addMsg(questionLabels[q], 'user')
         showTypingThenReply(replies[q])
       })

@@ -6,6 +6,7 @@ const projects = [
     live: 'https://sophix-git-main-nnschinmayee07-8534s-projects.vercel.app',
     github: 'https://github.com/nnschinmayee07/Sophix',
     tags: ['UI/UX', 'HTML & CSS', 'JavaScript', 'MVP'],
+    stack: ['HTML', 'CSS', 'JavaScript', 'Figma', 'Responsive Design'],
   },
   {
     num: '02', title: 'Home Farm Designing Tool',
@@ -13,6 +14,7 @@ const projects = [
     live: 'https://homefarm-planner.vercel.app',
     github: 'https://github.com/nnschinmayee07/My-home-farm-designer',
     tags: ['Software', 'UI Design', 'Planning', 'HTML'],
+    stack: ['HTML', 'CSS', 'JavaScript', 'Canvas API'],
   },
   {
     num: '03', title: 'Dexpress Deployment Software',
@@ -20,6 +22,7 @@ const projects = [
     live: 'https://zignasa-three.vercel.app',
     github: 'https://github.com/nnschinmayee07/Zignasa',
     tags: ['DevOps', 'Tooling', 'Automation'],
+    stack: ['Next.js', 'TypeScript', 'Vercel', 'Node.js'],
   },
   {
     num: '04', title: 'Gesture-Controlled Smart Gloves',
@@ -27,6 +30,7 @@ const projects = [
     live: null,
     github: 'https://github.com/nnschinmayee07/Gestures-to-speech',
     tags: ['Arduino', 'IoT', 'Sensors', 'Hardware'],
+    stack: ['Arduino', 'C++', 'Flex Sensors', 'Bluetooth'],
   },
 ]
 
@@ -142,10 +146,14 @@ export default function Home() {
               data-live={p.live ?? ''}
               data-github={p.github}
               data-tags={p.tags.join(',')}
+              data-stack={p.stack.join(',')}
             >
               <div className="project-num">{p.num}</div>
               <h3>{p.title}</h3>
               <p>{p.desc}</p>
+              <div className="project-stack">
+                {p.stack.map(s => <span key={s} className="stack-chip">{s}</span>)}
+              </div>
               <div className="project-footer">
                 <div className="project-tags">
                   {p.tags.map(t => <span key={t} className="project-tag">{t}</span>)}

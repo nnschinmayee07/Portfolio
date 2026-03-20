@@ -173,6 +173,18 @@ nav {
 .card-hint { font-size: 0.68rem; color: var(--muted); display: flex; align-items: center; gap: 0.3rem; margin-top: 1rem; opacity: 0; transition: opacity 0.2s; }
 .project-card:hover .card-hint { opacity: 1; }
 
+/* TECH STACK CHIPS on card */
+.project-stack {
+  display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.8rem 0 0.2rem;
+}
+.stack-chip {
+  font-size: 0.65rem; padding: 0.18rem 0.55rem;
+  background: rgba(167,139,250,0.08);
+  border: 1px solid rgba(167,139,250,0.25);
+  border-radius: 4px; color: var(--accent);
+  font-family: 'Syne', sans-serif; font-weight: 600; letter-spacing: 0.04em;
+}
+
 /* PROJECT MODAL */
 .proj-modal-backdrop {
   position: fixed; inset: 0; z-index: 500;
@@ -663,3 +675,25 @@ footer { padding: 2rem 3.5rem; border-top: 1px solid var(--line); display: flex;
   .ai-chat-wrap { bottom: 1.2rem; right: 1rem; }
   .ai-widget { width: calc(100vw - 2rem); }
 }
+
+/* AI CHAT INPUT (schedule flow) */
+.ai-input-wrap {
+  display: flex; gap: 0.4rem; align-items: center;
+  padding: 0 1rem 0.8rem; animation: msgPop 0.3s ease;
+}
+.ai-input {
+  flex: 1; background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.8rem;
+  color: var(--ink); font-size: 0.8rem; font-family: inherit;
+  outline: none; transition: border-color 0.2s;
+}
+.ai-input:focus { border-color: var(--accent); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none; border-radius: 8px; color: #fff;
+  width: 2rem; height: 2rem; cursor: pointer; font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: opacity 0.2s;
+}
+.ai-send:hover { opacity: 0.85; }
