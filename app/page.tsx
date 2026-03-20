@@ -52,7 +52,7 @@ export default function Home() {
         <div className="hero-inner">
           <div className="hero-eyebrow">
             <div className="hero-dot" />
-            <span>UI/UX Designer · Frontend Developer · CSE Student</span>
+            <span>UI/UX Designer · Full Stack Developer · CSE Student</span>
           </div>
           <h1 className="hero-name">Naga Sai<br /><span className="grad">Chinmayee</span></h1>
           <p className="hero-role">

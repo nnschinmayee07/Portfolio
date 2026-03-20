@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="loader-particles" id="loaderParticles"></div>
           <div className="loader-inner">
             <span className="loader-name">Chinmayee ✦</span>
-            <span className="loader-tagline">UI/UX Designer · Developer</span>
+            <span className="loader-tagline">UI/UX Designer · Full Stack Developer</span>
             <div className="loader-bar-wrap"><div className="loader-bar"></div></div>
             <div className="loader-dots">
               <div className="loader-dot-el"></div>
