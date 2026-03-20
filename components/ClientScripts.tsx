@@ -30,6 +30,20 @@ export default function ClientScripts() {
     // PAGE LOADER + PARTICLES
     const loader = document.getElementById('pageLoader')
     const particleContainer = document.getElementById('loaderParticles')
+    const loaderStatus = document.getElementById('loaderStatus')
+
+    // cycling words while loading
+    const words = ['Designing...', 'Building...', 'Crafting...', 'Shipping...', 'Almost there...']
+    let wordIdx = 0
+    const wordInterval = setInterval(() => {
+      if (!loaderStatus) return
+      loaderStatus.classList.add('swap')
+      setTimeout(() => {
+        wordIdx = (wordIdx + 1) % words.length
+        loaderStatus.textContent = words[wordIdx]
+        loaderStatus.classList.remove('swap')
+      }, 260)
+    }, 380)
     if (particleContainer) {
       const colors = ['#a78bfa','#f472b6','#fb923c','#34d399','#60a5fa']
       for (let i = 0; i < 28; i++) {
@@ -48,7 +62,10 @@ export default function ClientScripts() {
         particleContainer.appendChild(p)
       }
     }
-    setTimeout(() => loader?.classList.add('done'), 1800)
+    setTimeout(() => {
+      clearInterval(wordInterval)
+      loader?.classList.add('done')
+    }, 1800)
 
     // CUSTOM CURSOR (desktop only)
     const dot = document.createElement('div')

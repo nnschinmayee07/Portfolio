@@ -19,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span className="loader-name">Chinmayee ✦</span>
             <span className="loader-tagline">UI/UX Designer · Full Stack Developer</span>
             <div className="loader-bar-wrap"><div className="loader-bar"></div></div>
+            <span className="loader-status" id="loaderStatus">Designing...</span>
             <div className="loader-dots">
               <div className="loader-dot-el"></div>
               <div className="loader-dot-el"></div>
