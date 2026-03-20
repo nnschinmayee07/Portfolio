@@ -252,6 +252,7 @@ footer { padding: 2rem 3.5rem; border-top: 1px solid var(--line); display: flex;
   .nav-links { gap: 1rem; }
   .nav-badge { display: none; }
   #hero { padding: 7rem 1.5rem 3rem; }
+  .hero-name { font-size: clamp(2.2rem, 9vw, 3.5rem); line-height: 1.05; }
   #about, #skills, #projects, #contact { padding: 4rem 1.5rem; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
   footer { flex-direction: column; gap: 0.5rem; text-align: center; }

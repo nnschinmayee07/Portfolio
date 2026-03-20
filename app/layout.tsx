@@ -3,8 +3,8 @@ import ClientScripts from '@/components/ClientScripts'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Chinmayee · UI/UX Dev & Vibe Coder',
-  description: 'Portfolio of Naga Sai Chinmayee Neti — UI/UX Developer, Vibe Coder, CSE Student',
+  title: 'Chinmayee · UI/UX Designer & Developer',
+  description: 'Portfolio of Naga Sai Chinmayee Neti — UI/UX Designer, Frontend Developer, CSE Student',
 }
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

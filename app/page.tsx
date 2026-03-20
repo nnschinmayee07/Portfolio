@@ -52,7 +52,7 @@ export default function Home() {
         <div className="hero-inner">
           <div className="hero-eyebrow">
             <div className="hero-dot" />
-            <span>UI/UX Developer · Vibe Coder · CSE Student</span>
+            <span>UI/UX Designer · Frontend Developer · CSE Student</span>
           </div>
           <h1 className="hero-name">Naga Sai<br /><span className="grad">Chinmayee</span></h1>
           <p className="hero-role">
@@ -73,7 +73,7 @@ export default function Home() {
             <span className="section-label">About Me</span>
             <h2 className="section-title">Code that <span className="grad">feels good</span> to use</h2>
             <p>I&apos;m a 2nd-year CSE student at MLR Institute of Technology who got obsessed with one question: <strong>Why does so much software feel bad?</strong> So I started fixing it.</p>
-            <p>I&apos;m a vibecoder — I build with intuition, taste, and speed. I think in flows before I think in functions. Whether it&apos;s a gesture-controlled glove or a full product platform, I care deeply about how it <em>feels</em> to use.</p>
+            <p>I build with intuition, taste, and speed. I think in flows before I think in functions. Whether it&apos;s a gesture-controlled glove or a full product platform, I care deeply about how it <em>feels</em> to use.</p>
             <p><strong>UI/UX is my superpower.</strong> Code is how I make it real.</p>
             <div className="vibes">
               {['🎨 Design-first thinking','⚡ Ships fast','🔮 Pixel perfectionist','🛠️ Hardware + Software','🌍 4 languages','🎤 Public speaker'].map(v => (
