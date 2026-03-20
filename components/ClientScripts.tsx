@@ -190,10 +190,12 @@ export default function ClientScripts() {
     // BACK TO TOP
     const backBtn = document.getElementById('backToTop')
     const onScroll = () => {
-      if (window.scrollY > 400) backBtn?.classList.add('visible')
+      if (window.scrollY > 300) backBtn?.classList.add('visible')
       else backBtn?.classList.remove('visible')
     }
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    // check on load in case page is already scrolled
+    onScroll()
     backBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
 
     // Nav smooth scroll
