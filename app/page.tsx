@@ -206,15 +206,9 @@ export default function Home() {
 
       {/* AI CHAT AVATAR */}
       <div className="ai-chat-wrap" id="aiChatWrap">
-        {/* bubble */}
-        <button className="ai-avatar-btn" id="aiAvatarBtn" aria-label="Chat with Chinmayee's AI">
-          <span className="ai-avatar-inner">✦</span>
-          <span className="ai-avatar-ping" />
-        </button>
-        {/* widget */}
         <div className="ai-widget" id="aiWidget">
           <div className="ai-widget-header">
-            <div className="ai-widget-avatar">✦</div>
+            <div className="ai-widget-avatar">🤖</div>
             <div>
               <div className="ai-widget-name">Chinmayee&apos;s AI</div>
               <div className="ai-widget-status">● Online</div>
@@ -228,12 +222,22 @@ export default function Home() {
           </div>
           <div className="ai-quick-btns" id="aiQuickBtns">
             <button className="ai-quick" data-q="skillset">🎨 Skillset</button>
-            <button className="ai-quick" data-q="projects">🚀 Projects</button>
+            <button className="ai-quick" data-q="projects">🚀 All Projects</button>
+            {projects.map(p => (
+              <button key={p.num} className="ai-quick" data-q={`project_${p.num}`}>
+                {p.num === '04' ? '🔌' : '💻'} {p.title}
+              </button>
+            ))}
             <button className="ai-quick" data-q="schedule">📅 Schedule a Meet</button>
             <button className="ai-quick" data-q="contact">📬 Contact Info</button>
             <button className="ai-quick" data-q="message">✉️ Leave a Message</button>
           </div>
         </div>
+        {/* bubble */}
+        <button className="ai-avatar-btn" id="aiAvatarBtn" aria-label="Chat with Chinmayee's AI">
+          <span className="ai-avatar-inner">🤖</span>
+          <span className="ai-avatar-ping" />
+        </button>
       </div>
     </>
   )

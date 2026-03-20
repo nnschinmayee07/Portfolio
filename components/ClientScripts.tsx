@@ -276,7 +276,11 @@ export default function ClientScripts() {
 
     const replies: Record<string, string> = {
       skillset: `I specialise in UI/UX Design, Full Stack Dev (HTML, CSS, JS), Python, Java, C, and Hardware/IoT with Arduino & Raspberry Pi. Design-first, always. 🎨`,
-      projects: `Here's what I've built:\n• <a href="#projects">Sophix</a> — competitive platform for students\n• Gesture Smart Gloves — Arduino + flex sensors\n• <a href="#projects">Home Farm Tool</a> — layout planning UI\n• <a href="#projects">Dexpress</a> — deployment software\n\nClick any project card to explore! 🚀`,
+      projects: `Here's what I've built:\n• Sophix — competitive platform for students\n• Home Farm Tool — layout planning UI\n• Dexpress — deployment software\n• Gesture Smart Gloves — Arduino + flex sensors\n\nClick any project card to explore! 🚀`,
+      project_01: `Sophix is an Unstop-inspired competitive platform for students — built from scratch with deep focus on UX, clean flows, and pixel-perfect UI.\n\n🔗 <a href="https://sophix-git-main-nnschinmayee07-8534s-projects.vercel.app" target="_blank">Live Site</a> · <a href="https://github.com/nnschinmayee07/Sophix" target="_blank">GitHub</a>`,
+      project_02: `Home Farm Designing Tool — a software tool for planning and visualizing home farm layouts with a clean, intuitive UI.\n\n🔗 <a href="https://homefarm-planner.vercel.app" target="_blank">Live Site</a> · <a href="https://github.com/nnschinmayee07/My-home-farm-designer" target="_blank">GitHub</a>`,
+      project_03: `Dexpress — a streamlined deployment tool that simplifies getting apps from local to live. Built for developer experience and speed.\n\n🔗 <a href="https://zignasa-three.vercel.app" target="_blank">Live Site</a> · <a href="https://github.com/nnschinmayee07/Zignasa" target="_blank">GitHub</a>`,
+      project_04: `Gesture-Controlled Smart Gloves — Arduino-based gesture detection using flex sensors to convert hand movements into control signals. Hardware meets human-centered design.\n\n🐙 <a href="https://github.com/nnschinmayee07/Gestures-to-speech" target="_blank">GitHub Repo</a> (no live demo — it's hardware!)`,
       schedule: `Let's connect! You can schedule a meet via Google Calendar 👇\n<a href="https://calendar.google.com/calendar/u/0/r/eventedit?add=nnschinmayee07@gmail.com" target="_blank" rel="noopener">📅 Schedule on Google Calendar</a>\n\nOr just drop a mail at nnschinmayee07@gmail.com`,
       contact: `Here's how to reach me:\n✉️ nnschinmayee07@gmail.com\n💼 <a href="https://www.linkedin.com/in/naga-sai-chinmayee-neti-8ab1b5345/" target="_blank">LinkedIn</a>\n🐙 <a href="https://github.com/nnschinmayee07" target="_blank">GitHub</a>`,
       message: `You can drop me a message directly at ✉️ <a href="mailto:nnschinmayee07@gmail.com">nnschinmayee07@gmail.com</a> — I reply within 24 hours! 💬`,
@@ -284,7 +288,11 @@ export default function ClientScripts() {
 
     const questionLabels: Record<string, string> = {
       skillset: '🎨 Skillset',
-      projects: '🚀 Projects',
+      projects: '🚀 All Projects',
+      project_01: '💻 Sophix',
+      project_02: '💻 Home Farm Designing Tool',
+      project_03: '💻 Dexpress Deployment Software',
+      project_04: '🔌 Gesture-Controlled Smart Gloves',
       schedule: '📅 Schedule a Meet',
       contact: '📬 Contact Info',
       message: '✉️ Leave a Message',
