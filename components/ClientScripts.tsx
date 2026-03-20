@@ -44,8 +44,15 @@ export default function ClientScripts() {
       modalTitle.textContent = title
       modalDesc.textContent = desc
 
-      // No iframe — just show buttons prominently
-      modalPreview.innerHTML = ''
+      if (live) {
+        modalPreview.innerHTML = `<iframe src="${live}" title="${title} preview" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>`
+      } else {
+        modalPreview.innerHTML = `
+          <div class="no-preview">
+            <span>🔌</span>
+            <span>Hardware project — no live preview</span>
+          </div>`
+      }
 
       let actionsHTML = ''
       if (live) actionsHTML += `<a class="modal-btn primary" href="${live}" target="_blank" rel="noopener">↗ Visit Live Site</a>`
