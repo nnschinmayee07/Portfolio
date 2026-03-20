@@ -202,8 +202,7 @@ nav {
   flex-shrink: 0; transition: color 0.2s, border-color 0.2s;
 }
 .modal-close:hover { color: var(--ink); border-color: var(--accent); }
-.proj-modal-preview { position: relative; background: var(--bg); height: 340px; overflow: hidden; }
-.proj-modal-preview iframe { width: 100%; height: 100%; border: none; }
+.proj-modal-preview { display: none; }
 .preview-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to bottom, transparent 60%, var(--surface) 100%);
@@ -212,10 +211,10 @@ nav {
 .no-preview { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 0.8rem; color: var(--muted); }
 .no-preview span:first-child { font-size: 2.5rem; }
 .no-preview span:last-child { font-size: 0.82rem; letter-spacing: 0.05em; }
-.proj-modal-actions { padding: 1.4rem 2rem; display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+.proj-modal-actions { padding: 1.8rem 2rem; display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
 .modal-btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.6rem 1.3rem; border-radius: 10px; font-size: 0.82rem;
+  padding: 0.8rem 1.8rem; border-radius: 10px; font-size: 0.9rem;
   font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer;
 }
 .modal-btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }

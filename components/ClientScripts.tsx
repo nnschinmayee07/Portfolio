@@ -44,21 +44,13 @@ export default function ClientScripts() {
       modalTitle.textContent = title
       modalDesc.textContent = desc
 
-      if (live) {
-        modalPreview.innerHTML = `
-          <iframe src="${live}" title="${title} preview" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
-          <div class="preview-overlay"></div>`
-      } else {
-        modalPreview.innerHTML = `
-          <div class="no-preview">
-            <span>🔌</span>
-            <span>Hardware project — no live preview</span>
-          </div>`
-      }
+      // No iframe — just show buttons prominently
+      modalPreview.innerHTML = ''
 
       let actionsHTML = ''
       if (live) actionsHTML += `<a class="modal-btn primary" href="${live}" target="_blank" rel="noopener">↗ Visit Live Site</a>`
       if (github) actionsHTML += `<a class="modal-btn ghost" href="${github}" target="_blank" rel="noopener">🐙 GitHub Repo</a>`
+      if (!live && !github) actionsHTML += `<span style="font-size:0.82rem;color:var(--muted)">No links available</span>`
       if (tags.length) {
         actionsHTML += `<div class="modal-tags">${tags.map(t => `<span class="project-tag">${t.trim()}</span>`).join('')}</div>`
       }
