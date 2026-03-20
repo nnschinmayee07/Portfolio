@@ -108,7 +108,7 @@ export default function Home() {
         <div className="skills-grid">
           {[
             { icon: '🎨', title: 'UI / UX Design', items: [['Interface Design',true],['User Flow Mapping',true],['Wireframing & Prototyping',true],['Responsive Layouts',false],['Micro-interactions',false]] },
-            { icon: '🌐', title: 'Frontend Dev', items: [['HTML & CSS',true],['JavaScript',false],['REST API',false],['CSS Animations',false]] },
+            { icon: '🌐', title: 'Full Stack Dev', items: [['HTML & CSS',true],['JavaScript',false],['CSS Animations',false]] },
             { icon: '💻', title: 'Programming', items: [['Python',false],['Java',false],['C',false],['R',false],['SQL',false]] },
             { icon: '🔌', title: 'Hardware & IoT', items: [['Arduino',false],['Raspberry Pi',false],['IoT Systems',false],['AutoDesk / Fusion 360',false]] },
           ].map(g => (
