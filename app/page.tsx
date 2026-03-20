@@ -8,25 +8,25 @@ const projects = [
     tags: ['UI/UX', 'HTML & CSS', 'JavaScript', 'MVP'],
   },
   {
-    num: '02', title: 'Gesture-Controlled Smart Gloves',
-    desc: 'Arduino-based gesture detection using flex sensors to convert hand movements into control signals. Hardware meets human-centered design.',
-    live: null,
-    github: 'https://github.com/nnschinmayee07/Gestures-to-speech',
-    tags: ['Arduino', 'IoT', 'Sensors', 'Hardware'],
-  },
-  {
-    num: '03', title: 'Home Farm Designing Tool',
+    num: '02', title: 'Home Farm Designing Tool',
     desc: 'A software tool for planning and visualizing home farm layouts with a clean, intuitive UI. Design meets agriculture.',
     live: 'https://homefarm-planner.vercel.app',
     github: 'https://github.com/nnschinmayee07/My-home-farm-designer',
     tags: ['Software', 'UI Design', 'Planning', 'HTML'],
   },
   {
-    num: '04', title: 'Dexpress Deployment Software',
+    num: '03', title: 'Dexpress Deployment Software',
     desc: 'Streamlined deployment tool that simplifies getting apps from local to live. Built for developer experience and speed.',
     live: 'https://zignasa-three.vercel.app',
     github: 'https://github.com/nnschinmayee07/Zignasa',
     tags: ['DevOps', 'Tooling', 'Automation'],
+  },
+  {
+    num: '04', title: 'Gesture-Controlled Smart Gloves',
+    desc: 'Arduino-based gesture detection using flex sensors to convert hand movements into control signals. Hardware meets human-centered design.',
+    live: null,
+    github: 'https://github.com/nnschinmayee07/Gestures-to-speech',
+    tags: ['Arduino', 'IoT', 'Sensors', 'Hardware'],
   },
 ]
 
@@ -203,6 +203,38 @@ export default function Home() {
       </footer>
 
       <button className="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+      {/* AI CHAT AVATAR */}
+      <div className="ai-chat-wrap" id="aiChatWrap">
+        {/* bubble */}
+        <button className="ai-avatar-btn" id="aiAvatarBtn" aria-label="Chat with Chinmayee's AI">
+          <span className="ai-avatar-inner">✦</span>
+          <span className="ai-avatar-ping" />
+        </button>
+        {/* widget */}
+        <div className="ai-widget" id="aiWidget">
+          <div className="ai-widget-header">
+            <div className="ai-widget-avatar">✦</div>
+            <div>
+              <div className="ai-widget-name">Chinmayee&apos;s AI</div>
+              <div className="ai-widget-status">● Online</div>
+            </div>
+            <button className="ai-widget-close" id="aiWidgetClose">✕</button>
+          </div>
+          <div className="ai-messages" id="aiMessages">
+            <div className="ai-msg bot">
+              Hey! 👋 I&apos;m Chinmayee&apos;s AI. Ask me anything or pick a quick question below.
+            </div>
+          </div>
+          <div className="ai-quick-btns" id="aiQuickBtns">
+            <button className="ai-quick" data-q="skillset">🎨 Skillset</button>
+            <button className="ai-quick" data-q="projects">🚀 Projects</button>
+            <button className="ai-quick" data-q="schedule">📅 Schedule a Meet</button>
+            <button className="ai-quick" data-q="contact">📬 Contact Info</button>
+            <button className="ai-quick" data-q="message">✉️ Leave a Message</button>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

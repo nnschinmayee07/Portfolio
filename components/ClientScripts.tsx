@@ -267,6 +267,62 @@ export default function ClientScripts() {
       if (e.key === 'ArrowLeft' && currentCardIdx > 0) openModal(cards[currentCardIdx - 1])
     })
 
+    // AI CHAT WIDGET
+    const avatarBtn = document.getElementById('aiAvatarBtn')
+    const widget = document.getElementById('aiWidget')
+    const widgetClose = document.getElementById('aiWidgetClose')
+    const messagesEl = document.getElementById('aiMessages')
+    const quickBtns = document.querySelectorAll('.ai-quick')
+
+    const replies: Record<string, string> = {
+      skillset: `I specialise in UI/UX Design, Full Stack Dev (HTML, CSS, JS), Python, Java, C, and Hardware/IoT with Arduino & Raspberry Pi. Design-first, always. 🎨`,
+      projects: `Here's what I've built:\n• <a href="#projects">Sophix</a> — competitive platform for students\n• Gesture Smart Gloves — Arduino + flex sensors\n• <a href="#projects">Home Farm Tool</a> — layout planning UI\n• <a href="#projects">Dexpress</a> — deployment software\n\nClick any project card to explore! 🚀`,
+      schedule: `Let's connect! You can schedule a meet via Google Calendar 👇\n<a href="https://calendar.google.com/calendar/u/0/r/eventedit?add=nnschinmayee07@gmail.com" target="_blank" rel="noopener">📅 Schedule on Google Calendar</a>\n\nOr just drop a mail at nnschinmayee07@gmail.com`,
+      contact: `Here's how to reach me:\n✉️ nnschinmayee07@gmail.com\n💼 <a href="https://www.linkedin.com/in/naga-sai-chinmayee-neti-8ab1b5345/" target="_blank">LinkedIn</a>\n🐙 <a href="https://github.com/nnschinmayee07" target="_blank">GitHub</a>`,
+      message: `You can drop me a message directly at ✉️ <a href="mailto:nnschinmayee07@gmail.com">nnschinmayee07@gmail.com</a> — I reply within 24 hours! 💬`,
+    }
+
+    const questionLabels: Record<string, string> = {
+      skillset: '🎨 Skillset',
+      projects: '🚀 Projects',
+      schedule: '📅 Schedule a Meet',
+      contact: '📬 Contact Info',
+      message: '✉️ Leave a Message',
+    }
+
+    function addMsg(text: string, type: 'bot' | 'user') {
+      if (!messagesEl) return
+      const div = document.createElement('div')
+      div.className = `ai-msg ${type}`
+      div.innerHTML = text.replace(/\n/g, '<br>')
+      messagesEl.appendChild(div)
+      messagesEl.scrollTop = messagesEl.scrollHeight
+    }
+
+    function showTypingThenReply(text: string) {
+      if (!messagesEl) return
+      const typing = document.createElement('div')
+      typing.className = 'ai-typing'
+      typing.innerHTML = '<span></span><span></span><span></span>'
+      messagesEl.appendChild(typing)
+      messagesEl.scrollTop = messagesEl.scrollHeight
+      setTimeout(() => {
+        typing.remove()
+        addMsg(text, 'bot')
+      }, 900)
+    }
+
+    avatarBtn?.addEventListener('click', () => widget?.classList.toggle('open'))
+    widgetClose?.addEventListener('click', () => widget?.classList.remove('open'))
+
+    quickBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = (btn as HTMLElement).dataset.q!
+        addMsg(questionLabels[q], 'user')
+        showTypingThenReply(replies[q])
+      })
+    })
+
     return () => {
       document.removeEventListener('mousemove', onMove)
       window.removeEventListener('scroll', onScroll)
