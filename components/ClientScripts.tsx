@@ -80,9 +80,9 @@ export default function ClientScripts() {
 
     // Nav smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', function (e) {
+      link.addEventListener('click', function (this: HTMLAnchorElement, e) {
         e.preventDefault()
-        const target = document.querySelector((this as HTMLAnchorElement).getAttribute('href')!)
+        const target = document.querySelector(this.getAttribute('href')!)
         if (target) {
           const navH = document.querySelector('nav')!.offsetHeight
           const top = target.getBoundingClientRect().top + window.scrollY - navH
