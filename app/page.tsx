@@ -82,7 +82,7 @@ export default function Home() {
             </div>
           </div>
           <div className="reveal">
-            <div className="edu-card">
+            <div className="edu-card tilt-card">
               <div className="edu-year">2024 — 2028</div>
               <h4>MLR Institute of Technology</h4>
               <p>B.Tech — Computer Science Engineering</p>
@@ -112,7 +112,7 @@ export default function Home() {
             { icon: '💻', title: 'Programming', items: [['Python',false],['Java',false],['C',false],['R',false],['SQL',false]] },
             { icon: '🔌', title: 'Hardware & IoT', items: [['Arduino',false],['Raspberry Pi',false],['IoT Systems',false],['AutoDesk / Fusion 360',false]] },
           ].map(g => (
-            <div key={g.title} className="skill-group reveal">
+            <div key={g.title} className="skill-group reveal tilt-card">
               <div className="skill-icon">{g.icon}</div>
               <h4>{g.title}</h4>
               <ul className="skill-list">
@@ -136,7 +136,7 @@ export default function Home() {
           {projects.map(p => (
             <div
               key={p.num}
-              className="project-card reveal"
+              className="project-card reveal tilt-card"
               data-title={p.title}
               data-desc={p.desc}
               data-live={p.live ?? ''}

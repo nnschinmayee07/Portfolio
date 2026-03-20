@@ -3,6 +3,30 @@ import { useEffect } from 'react'
 
 export default function ClientScripts() {
   useEffect(() => {
+    // 3D TILT on cards
+    document.querySelectorAll('.tilt-card').forEach(el => {
+      const card = el as HTMLElement
+      // inject shine layer
+      const shine = document.createElement('div')
+      shine.className = 'tilt-shine'
+      card.appendChild(shine)
+
+      card.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+        const cx = rect.width / 2
+        const cy = rect.height / 2
+        const rotY = ((x - cx) / cx) * 10
+        const rotX = -((y - cy) / cy) * 10
+        card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`
+        shine.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.08) 0%, transparent 65%)`
+      })
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)'
+      })
+    })
+
     // PAGE LOADER
     const loader = document.getElementById('pageLoader')
     setTimeout(() => loader?.classList.add('done'), 1300)

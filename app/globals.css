@@ -358,3 +358,20 @@ body { cursor: none; }
 .skill-group.reveal, .project-card.reveal {
   transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s, box-shadow 0.25s;
 }
+
+/* 3D TILT CARDS */
+.tilt-card {
+  transform-style: preserve-3d;
+  transform: perspective(800px) rotateX(0deg) rotateY(0deg) scale(1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  will-change: transform;
+}
+.tilt-card:hover {
+  box-shadow: 0 20px 60px rgba(167,139,250,0.18);
+}
+.tilt-card .tilt-shine {
+  position: absolute; inset: 0; border-radius: inherit;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 70%);
+  pointer-events: none; opacity: 0; transition: opacity 0.2s;
+}
+.tilt-card:hover .tilt-shine { opacity: 1; }
