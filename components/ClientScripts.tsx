@@ -3,6 +3,28 @@ import { useEffect } from 'react'
 
 export default function ClientScripts() {
   useEffect(() => {
+    // HERO MAGNETIC NAME
+    const heroName = document.querySelector('.hero-name') as HTMLElement
+    if (heroName) {
+      heroName.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = heroName.getBoundingClientRect()
+        const cx = rect.left + rect.width / 2
+        const cy = rect.top + rect.height / 2
+        const dx = (e.clientX - cx) / rect.width * 18
+        const dy = (e.clientY - cy) / rect.height * 10
+        heroName.style.transform = `translate(${dx}px, ${dy}px)`
+      })
+      heroName.addEventListener('mouseleave', () => {
+        heroName.style.transform = 'translate(0,0)'
+      })
+    }
+
+    // HERO ROLE — wrap each word for hover effect
+    const heroRole = document.querySelector('.hero-role') as HTMLElement
+    if (heroRole) {
+      heroRole.innerHTML = heroRole.innerHTML.replace(/(\b\w+\b)/g, '<span class="word">$1</span>')
+    }
+
     // HERO PARTICLES
     const hero = document.getElementById('hero')
     if (hero) {
@@ -91,35 +113,35 @@ export default function ClientScripts() {
       loader?.classList.add('done')
     }, 1800)
 
-    // CUSTOM CURSOR (desktop only)
-    const dot = document.createElement('div')
-    dot.className = 'cursor-dot'
-    const ring = document.createElement('div')
-    ring.className = 'cursor-ring'
-    document.body.appendChild(dot)
-    document.body.appendChild(ring)
+    // CUSTOM CURSOR — desktop/mouse only
+    const isMouseDevice = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    let dot: HTMLDivElement | null = null
+    let ring: HTMLDivElement | null = null
+    let glow: HTMLDivElement | null = null
 
-    // CURSOR GLOW
-    const glow = document.createElement('div')
-    glow.className = 'cursor-glow'
-    document.body.appendChild(glow)
-
-    let mx = 0, my = 0
     const onMove = (e: MouseEvent) => {
-      mx = e.clientX; my = e.clientY
-      dot.style.left = mx + 'px'; dot.style.top = my + 'px'
-      glow.style.left = mx + 'px'; glow.style.top = my + 'px'
-      // ring follows with slight lag via CSS transition
-      ring.style.left = mx + 'px'; ring.style.top = my + 'px'
+      if (!dot || !ring || !glow) return
+      dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'
+      ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px'
+      glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'
     }
-    document.addEventListener('mousemove', onMove)
 
-    // cursor hover effect on interactive elements
-    const hoverEls = document.querySelectorAll('a, button, .project-card, .skill-group')
-    hoverEls.forEach(el => {
-      el.addEventListener('mouseenter', () => { dot.classList.add('hover'); ring.classList.add('hover') })
-      el.addEventListener('mouseleave', () => { dot.classList.remove('hover'); ring.classList.remove('hover') })
-    })
+    if (isMouseDevice) {
+      dot = document.createElement('div'); dot.className = 'cursor-dot'
+      ring = document.createElement('div'); ring.className = 'cursor-ring'
+      glow = document.createElement('div'); glow.className = 'cursor-glow'
+      document.body.appendChild(dot)
+      document.body.appendChild(ring)
+      document.body.appendChild(glow)
+      document.addEventListener('mousemove', onMove)
+
+      // cursor hover effect on interactive elements
+      const hoverEls = document.querySelectorAll('a, button, .project-card, .skill-group')
+      hoverEls.forEach(el => {
+        el.addEventListener('mouseenter', () => { dot!.classList.add('hover'); ring!.classList.add('hover') })
+        el.addEventListener('mouseleave', () => { dot!.classList.remove('hover'); ring!.classList.remove('hover') })
+      })
+    }
 
     // SCROLL REVEAL with stagger per section
     const reveals = document.querySelectorAll('.reveal')
@@ -236,9 +258,9 @@ export default function ClientScripts() {
     return () => {
       document.removeEventListener('mousemove', onMove)
       window.removeEventListener('scroll', onScroll)
-      if (document.body.contains(dot)) document.body.removeChild(dot)
-      if (document.body.contains(ring)) document.body.removeChild(ring)
-      if (document.body.contains(glow)) document.body.removeChild(glow)
+      if (dot && document.body.contains(dot)) document.body.removeChild(dot)
+      if (ring && document.body.contains(ring)) document.body.removeChild(ring)
+      if (glow && document.body.contains(glow)) document.body.removeChild(glow)
     }
   }, [])
 
