@@ -40,7 +40,7 @@ nav {
   border-bottom: 1px solid var(--line);
 }
 .nav-logo {
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
