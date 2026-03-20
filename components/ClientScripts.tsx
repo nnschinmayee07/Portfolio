@@ -27,9 +27,28 @@ export default function ClientScripts() {
       })
     })
 
-    // PAGE LOADER
+    // PAGE LOADER + PARTICLES
     const loader = document.getElementById('pageLoader')
-    setTimeout(() => loader?.classList.add('done'), 1300)
+    const particleContainer = document.getElementById('loaderParticles')
+    if (particleContainer) {
+      const colors = ['#a78bfa','#f472b6','#fb923c','#34d399','#60a5fa']
+      for (let i = 0; i < 28; i++) {
+        const p = document.createElement('div')
+        p.className = 'loader-particle'
+        const size = Math.random() * 6 + 3
+        p.style.cssText = `
+          width:${size}px; height:${size}px;
+          left:${Math.random() * 100}%;
+          bottom:${Math.random() * 20}%;
+          background:${colors[Math.floor(Math.random()*colors.length)]};
+          animation-duration:${2.5 + Math.random() * 3}s;
+          animation-delay:${Math.random() * 1.5}s;
+          filter: blur(${Math.random() > 0.5 ? 1 : 0}px);
+        `
+        particleContainer.appendChild(p)
+      }
+    }
+    setTimeout(() => loader?.classList.add('done'), 1800)
 
     // CUSTOM CURSOR (desktop only)
     const dot = document.createElement('div')
