@@ -3,8 +3,10 @@ import { useEffect } from 'react'
 
 export default function ClientScripts() {
   useEffect(() => {
-    // 3D TILT on cards
-    document.querySelectorAll('.tilt-card').forEach(el => {
+    // 3D TILT on cards — desktop only
+    const isTouchDevice = window.matchMedia('(hover: none)').matches
+    if (!isTouchDevice) {
+      document.querySelectorAll('.tilt-card').forEach(el => {
       const card = el as HTMLElement
       // inject shine layer
       const shine = document.createElement('div')
@@ -26,6 +28,7 @@ export default function ClientScripts() {
         card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)'
       })
     })
+    } // end isTouchDevice check
 
     // PAGE LOADER + PARTICLES
     const loader = document.getElementById('pageLoader')

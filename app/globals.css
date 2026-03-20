@@ -20,6 +20,7 @@ body {
   font-weight: 300;
   line-height: 1.7;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* CURSOR GLOW */
@@ -287,7 +288,10 @@ footer { padding: 2rem 3.5rem; border-top: 1px solid var(--line); display: flex;
 
 /* CUSTOM CURSOR */
 body { cursor: none; }
-@media (hover: none) { body { cursor: auto; } }
+@media (hover: none) { 
+  body { cursor: auto; }
+  .cursor-dot, .cursor-ring, .cursor-glow { display: none; }
+}
 .cursor-dot {
   position: fixed; width: 8px; height: 8px; border-radius: 50%;
   background: var(--accent); pointer-events: none; z-index: 9999;
