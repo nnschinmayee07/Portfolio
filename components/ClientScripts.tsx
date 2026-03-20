@@ -46,21 +46,7 @@ export default function ClientScripts() {
 
       if (live) {
         modalPreview.innerHTML = `
-          <div class="browser-mockup">
-            <div class="browser-bar">
-              <div class="browser-dots">
-                <span></span><span></span><span></span>
-              </div>
-              <div class="browser-url">${live}</div>
-            </div>
-            <div class="browser-body">
-              <div class="browser-glow"></div>
-              <div class="browser-body-inner">
-                <a class="browser-visit-btn" href="${live}" target="_blank" rel="noopener">↗ Open Live Site</a>
-                <span class="browser-tagline">Opens in a new tab</span>
-              </div>
-            </div>
-          </div>`
+          <iframe src="${live}" title="${title} preview" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>`
       } else {
         modalPreview.innerHTML = `
           <div class="no-preview">
