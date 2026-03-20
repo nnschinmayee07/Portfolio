@@ -43,6 +43,7 @@ nav {
   font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  white-space: nowrap; flex-shrink: 0;
 }
 .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
 .nav-links li a {
@@ -54,6 +55,7 @@ nav {
   font-size: 0.7rem; padding: 0.25rem 0.7rem;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   color: white; border-radius: 20px; font-weight: 600; letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 /* HERO */
@@ -259,4 +261,11 @@ footer { padding: 2rem 3.5rem; border-top: 1px solid var(--line); display: flex;
   .proj-modal-preview { height: 200px; }
   .proj-modal-top, .proj-modal-actions { padding: 1.2rem; }
   .modal-tags { margin-left: 0; }
+}
+
+@media (max-width: 600px) {
+  nav { padding: 0.9rem 1rem; }
+  .nav-links { gap: 0.7rem; }
+  .nav-links li a { font-size: 0.7rem; letter-spacing: 0.03em; }
+  .nav-badge { display: none; }
 }
