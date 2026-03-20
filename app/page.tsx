@@ -210,7 +210,7 @@ export default function Home() {
         <span>© 2025 Naga Sai Chinmayee Neti</span>
       </footer>
 
-      <button className="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+      <a href="#hero" className="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
 
       {/* AI CHAT AVATAR */}
       <div className="ai-chat-wrap" id="aiChatWrap">

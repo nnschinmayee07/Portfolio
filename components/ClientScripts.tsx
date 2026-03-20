@@ -196,23 +196,6 @@ export default function ClientScripts() {
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
 
-    function scrollToTop() {
-      const start = window.scrollY
-      const duration = 500
-      const startTime = performance.now()
-      const ease = (t: number) => t < 0.5 ? 2*t*t : -1+(4-2*t)*t
-      function step(now: number) {
-        const elapsed = now - startTime
-        const progress = Math.min(elapsed / duration, 1)
-        window.scrollTo(0, start * (1 - ease(progress)))
-        if (progress < 1) requestAnimationFrame(step)
-      }
-      requestAnimationFrame(step)
-    }
-
-    backBtn?.addEventListener('click', scrollToTop)
-    backBtn?.addEventListener('touchend', (e) => { e.preventDefault(); scrollToTop() })
-
     // Nav smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', function (this: HTMLAnchorElement, e) {
