@@ -201,6 +201,8 @@ export default function Home() {
       <footer>
         <span>© 2025 Naga Sai Chinmayee Neti</span>
       </footer>
+
+      <button className="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
     </>
   )
 }

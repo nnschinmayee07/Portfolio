@@ -13,6 +13,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
       </head>
       <body>
+        <div class="page-loader" id="pageLoader">
+          <div class="loader-inner">
+            <span class="loader-name">Chinmayee ✦</span>
+            <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+          </div>
+        </div>
         {children}
         <ClientScripts />
       </body>
