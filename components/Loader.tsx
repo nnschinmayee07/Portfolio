@@ -15,10 +15,10 @@ const GREETINGS = [
 ] as const
 
 // How long each greeting is visible (ms). Telugu holds longer.
-const HOLD_MS = (i: number) => (i === GREETINGS.length - 1 ? 1800 : 520)
-// Framer easing for enter and exit
-const EASE_IN  = [0.25, 0.1, 0.25, 1] as const
-const EASE_OUT = [0.4, 0, 0.6, 1]    as const
+const HOLD_MS = (i: number) => (i === GREETINGS.length - 1 ? 1800 : 600)
+// Soft ease-out for enter (word settles naturally), sharper exit
+const EASE_OUT  = [0.0, 0.0, 0.2, 1] as const   // cubic-bezier ease-out
+const EASE_EXIT = [0.4, 0,   1,   1] as const   // accelerate out
 
 interface LoaderProps {
   onComplete?: () => void
@@ -55,22 +55,22 @@ export default function Loader({ onComplete }: LoaderProps) {
   const wordVariants = {
     enter: {
       opacity: 0,
-      y: prefersReduced ? 0 : (isAnchor ? 24 : 14),
+      y: prefersReduced ? 0 : (isAnchor ? 20 : 10),
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReduced ? 0 : (isAnchor ? 0.75 : 0.45),
-        ease: EASE_IN,
+        duration: prefersReduced ? 0 : (isAnchor ? 0.7 : 0.45),
+        ease: EASE_OUT,
       },
     },
     exit: {
       opacity: 0,
-      y: prefersReduced ? 0 : -10,
+      y: prefersReduced ? 0 : -8,
       transition: {
-        duration: prefersReduced ? 0 : 0.3,
-        ease: EASE_OUT,
+        duration: prefersReduced ? 0 : 0.25,
+        ease: EASE_EXIT,
       },
     },
   }
@@ -80,7 +80,7 @@ export default function Loader({ onComplete }: LoaderProps) {
     exit: {
       opacity: 0,
       transition: {
-        duration: prefersReduced ? 0 : 0.65,
+        duration: prefersReduced ? 0 : 0.55,
         ease: EASE_OUT,
       },
     },
@@ -115,8 +115,8 @@ export default function Loader({ onComplete }: LoaderProps) {
             <motion.span
               key={`lang-${index}`}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { duration: 0.3, ease: EASE_IN } }}
-              exit={{ opacity: 0, transition: { duration: 0.2 } }}
+              animate={{ opacity: 1, transition: { duration: 0.2, ease: EASE_OUT } }}
+              exit={{ opacity: 0, transition: { duration: 0.14, ease: EASE_EXIT } }}
               style={{
                 fontFamily:    '"Geist Mono", "DM Mono", monospace',
                 fontSize:      '0.62rem',
@@ -166,7 +166,7 @@ export default function Loader({ onComplete }: LoaderProps) {
                 initial={{ scaleX: 0 }}
                 animate={{
                   scaleX: 1,
-                  transition: { duration: 0.9, delay: 0.3, ease: EASE_IN },
+                  transition: { duration: 0.7, delay: 0.25, ease: EASE_OUT },
                 }}
                 exit={{ opacity: 0, transition: { duration: 0.2 } }}
                 style={{

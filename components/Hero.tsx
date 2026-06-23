@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import AuroraBlob from './AuroraBlob'
 
 /* ─────────────────────────────────────────────
    ANIMATION HELPERS
@@ -102,11 +103,51 @@ export default function Hero() {
     reduced ? { initial: {}, animate: {} } : fn(...args)
 
   const [scrolled, setScrolled] = useState(false)
+  const nameBlockRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const onScroll = () => { if (window.scrollY > 60) setScrolled(true) }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Cursor-tinted text: track pointer over the name block, paint a
+  // radial red spotlight via CSS custom properties on each line.
+  const onPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (reduced) return
+    const block = nameBlockRef.current
+    if (!block) return
+    const lines = block.querySelectorAll<HTMLElement>('.hero-name-spotlight')
+    lines.forEach(line => {
+      const r = line.getBoundingClientRect()
+      // Distance from cursor to the vertical center of this line
+      const lineCenterY = r.top + r.height / 2
+      const distY = Math.abs(e.clientY - lineCenterY)
+      // Only paint blue if cursor is within ~half a line-height of this line
+      const threshold = r.height * 0.9
+      if (distY > threshold) {
+        // Too far — clear tint on this line
+        line.style.removeProperty('--cx')
+        line.style.removeProperty('--cy')
+        line.dataset.active = 'off'
+      } else {
+        const x = ((e.clientX - r.left) / r.width  * 100).toFixed(2)
+        const y = ((e.clientY - r.top)  / r.height * 100).toFixed(2)
+        line.style.setProperty('--cx', `${x}%`)
+        line.style.setProperty('--cy', `${y}%`)
+        line.dataset.active = 'on'
+      }
+    })
+    block.dataset.spotlight = 'on'
+  }, [reduced])
+
+  const onPointerLeave = useCallback(() => {
+    const block = nameBlockRef.current
+    if (!block) return
+    block.dataset.spotlight = 'off'
+    block.querySelectorAll<HTMLElement>('.hero-name-spotlight').forEach(line => {
+      line.dataset.active = 'off'
+    })
   }, [])
 
   return (
@@ -125,6 +166,9 @@ export default function Hero() {
           overflowX:      'hidden',
         }}
       >
+        {/* Aurora ambient layer */}
+        <AuroraBlob />
+
         {/* Vertical grid lines */}
         <div className="grid-lines grid-lines-inv" aria-hidden="true">
           <span /><span /><span /><span /><span />
@@ -142,16 +186,20 @@ export default function Hero() {
           <span className="hero-top-label">2024–2028</span>
         </motion.div>
 
-        {/* Giant name */}
+        {/* Giant name — cursor spotlight tints text on hover */}
         <div
+          ref={nameBlockRef}
           className="hero-name-block"
           aria-label="Naga Sai Chinmayee Neti"
+          data-spotlight="off"
           style={{ position: 'relative', zIndex: 3, textAlign: 'center' }}
+          onPointerMove={onPointerMove}
+          onPointerLeave={onPointerLeave}
         >
           {NAME_LINES.map((line, i) => (
             <motion.span
               key={line}
-              className={i === 1 ? 'hero-name-line hero-name-line-red' : 'hero-name-line hero-name-line-dark'}
+              className={i === 1 ? 'hero-name-line hero-name-line-red' : 'hero-name-line hero-name-line-dark hero-name-spotlight'}
               {...a(fadeUp, 0.14 + i * 0.1, 0.9)}
             >
               {line}

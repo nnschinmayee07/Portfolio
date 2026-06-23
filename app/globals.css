@@ -243,6 +243,7 @@ body {
   padding: clamp(6rem, 10vh, 8rem) var(--gutter) clamp(4rem, 7vh, 6rem);
 }
 
+
 .hero-top-row {
   position: absolute;
   top: clamp(1.4rem, 3.5vh, 2.5rem);
@@ -284,6 +285,25 @@ body {
 /* Middle name line in red */
 .hero-name-line-red {
   color: var(--red);
+}
+
+/* Cursor spotlight — cream lines only (not the red CHINMAYEE line).
+   Default: plain cream. On hover: radial gradient from red at cursor → cream. */
+.hero-name-spotlight {
+  color: var(--cream);
+}
+
+.hero-name-spotlight[data-active="on"] {
+  background-image: radial-gradient(
+    circle 260px at var(--cx, 50%) var(--cy, 50%),
+    #A8D8EA 0%,
+    #7EC8E3 22%,
+    #F0EBE1 52%,
+    #F0EBE1 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Discipline line below name */
